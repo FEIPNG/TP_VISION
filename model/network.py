@@ -16,15 +16,15 @@ class SimpleDetector(nn.Module):
         # TODO: play with simplifications of this network
         self.features = nn.Sequential(
             nn.Conv2d(3, 32, kernel_size=(3, 3), padding=1),
-            nn.BatchNorm2d(32),
+#            nn.BatchNorm2d(32),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=4, stride=4),
             nn.Conv2d(32, 64, kernel_size=(3, 3), padding=1),
-            nn.BatchNorm2d(64),
+ #           nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=4, stride=4),
             nn.Conv2d(64, 64, kernel_size=(3, 3), padding=1),
-            nn.BatchNorm2d(64),
+  #          nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=4, stride=4),
             nn.Flatten()
@@ -38,10 +38,10 @@ class SimpleDetector(nn.Module):
             # 3 = ImageNet_image_res/(maxpool_stride^#maxpool_layers) = 224/4^3
             nn.Linear(64 * 3 * 3, 32),
             nn.ReLU(),
-            nn.Dropout(),
+   #         nn.Dropout(),
             nn.Linear(32, 16),
             nn.ReLU(),
-            nn.Dropout(),
+    #        nn.Dropout(),
             nn.Linear(16, nb_classes)
         )
         self.classifier.apply(init_weights)
@@ -79,10 +79,10 @@ class ResnetObjectDetector(nn.Module):
         self.classifier = nn.Sequential(
             nn.Linear(512, 512),
             nn.ReLU(),
-            nn.Dropout(),
+     #       nn.Dropout(),
             nn.Linear(512, 512),
             nn.ReLU(),
-            nn.Dropout(),
+      #      nn.Dropout(),
             nn.Linear(512, nb_classes)
         )
 

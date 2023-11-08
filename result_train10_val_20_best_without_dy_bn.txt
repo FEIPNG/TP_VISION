@@ -1,0 +1,109 @@
+**** using CUDA
+**** loading object detector at output/best_model.pth...
+**** object detector loaded
+Evaluating train set...
+Evaluating 203 samples...
+Evaluating validation set...
+Evaluating 406 samples...
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0036.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0556.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/face/image_0263.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0035.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0240.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0049.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0255.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0098.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0247.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0282.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0244.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0255.jpg
+Evaluating test set...
+Evaluating 1424 samples...
+	Failure at /matieres/5MMVORF/01-dataset/images/face/image_0296.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0266.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0047.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0099.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0369.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0058.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0005.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0730.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0138.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0078.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0248.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0254.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0256.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0067.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0143.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0031.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0193.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0059.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0777.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0076.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0116.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0037.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0050.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0315.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/face/image_0021.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0432.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0041.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0243.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0262.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0781.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0076.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0196.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/face/image_0310.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0328.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0317.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0056.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0100.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/face/image_0315.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0097.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0203.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0300.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0038.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/face/image_0093.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0230.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0112.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0022.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0061.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0263.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0065.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0382.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/airplane/image_0262.jpg
+	Failure at /matieres/5MMVORF/01-dataset/images/motorcycle/image_0201.jpg
+
+*** train set accuracy
+	Mean accuracy for all labels: 1.0
+
+	Mean accuracy for label motorcycle: 1.0
+		 81 over 81 samples
+
+	Mean accuracy for label face: 1.0
+		 52 over 52 samples
+
+	Mean accuracy for label airplane: 1.0
+		 70 over 70 samples
+
+*** validation set accuracy
+	Mean accuracy for all labels: 0.9704433497536946
+
+	Mean accuracy for label motorcycle: 0.9710982658959537
+		 168 over 173 samples
+
+	Mean accuracy for label face: 0.987012987012987
+		 76 over 77 samples
+
+	Mean accuracy for label airplane: 0.9615384615384616
+		 150 over 156 samples
+
+*** test set accuracy
+	Mean accuracy for all labels: 0.9634831460674157
+
+	Mean accuracy for label motorcycle: 0.9558823529411765
+		 520 over 544 samples
+
+	Mean accuracy for label face: 0.9836601307189542
+		 301 over 306 samples
+
+	Mean accuracy for label airplane: 0.9599303135888502
+		 551 over 574 samples
