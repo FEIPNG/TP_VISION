@@ -34,6 +34,8 @@ if __name__ == '__main__':
 
     cut_val = int(0.8 * len(data))   # 0.8
     cut_test = int(0.9 * len(data))  # 0.9
+    # cut_val = int(0.005 * len(data))   # 0.005
+    # cut_test = int(0.1 * len(data))  # 0.1
     train_data = data[:cut_val]
     val_data = data[cut_val:cut_test]
     test_data = data[cut_test:]
@@ -144,10 +146,9 @@ if __name__ == '__main__':
         print(f"Val loss: {val_loss:.8f}, Val accuracy: {val_acc:.8f}")
 
         # TODO: write code to store model with highest accuracy, lowest loss
-        if False:
+        if(e == 0 or prev_val_acc < val_acc or (prev_val_acc == val_acc and prev_val_loss > val_loss)):
             prev_val_acc = val_acc
             prev_val_loss = val_loss
-
             # serialize the model to disk
             print("**** saving BEST object detector model...")
             # When a network has dropout and / or batchnorm layers

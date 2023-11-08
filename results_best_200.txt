@@ -1,0 +1,36 @@
+*** train set accuracy
+	Mean accuracy for all labels: 1.0
+
+	Mean accuracy for label motorcycle: 1.0
+		 658 over 658 samples
+
+	Mean accuracy for label face: 1.0
+		 343 over 343 samples
+
+	Mean accuracy for label airplane: 1.0
+		 625 over 625 samples
+
+*** validation set accuracy
+	Mean accuracy for all labels: 1.0
+
+	Mean accuracy for label motorcycle: 1.0
+		 59 over 59 samples
+
+	Mean accuracy for label face: 1.0
+		 55 over 55 samples
+
+	Mean accuracy for label airplane: 1.0
+		 89 over 89 samples
+
+*** test set accuracy
+	Mean accuracy for all labels: 1.0
+
+	Mean accuracy for label motorcycle: 1.0
+		 81 over 81 samples
+
+	Mean accuracy for label face: 1.0
+		 37 over 37 samples
+
+	Mean accuracy for label airplane: 1.0
+		 86 over 86 samples
+
