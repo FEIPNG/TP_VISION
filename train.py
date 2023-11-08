@@ -34,8 +34,8 @@ if __name__ == '__main__':
 
     #cut_val = int(0.8 * len(data))   # 0.8
     #cut_test = int(0.9 * len(data))  # 0.9
-    cut_val = int(0.1 * len(data))   # 0.1
-    cut_test = int(0.3 * len(data))  # 0.2
+    cut_val = int(0.005 * len(data))   # 0.005
+    cut_test = int(0.1 * len(data))  # 0.1
     train_data = data[:cut_val]
     val_data = data[cut_val:cut_test]
     test_data = data[cut_test:]
