@@ -56,8 +56,62 @@ class SimpleDetector(nn.Module):
         return self.classifier(x)
 
 # TODO: create a new class based on SimpleDetector to create a deeper model
+class DeeperDetector(nn.Module):
+    """ VGG11 inspired feature extraction layers """
+    def __init__(self, nb_classes):
+        """ initialize the network """
+        super().__init__()
+        # TODO: play with simplifications of this network
+        self.features = nn.Sequential(
+            nn.Conv2d(3, 64, kernel_size=(3, 3), padding=1),
+            nn.ReLU(),
+            nn.Conv2d(64, 64, kernel_size=(3, 3), padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Conv2d(64, 128, kernel_size=(3, 3), padding=1),
+            nn.ReLU(),
+            nn.Conv2d(128, 128, kernel_size=(3, 3), padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Conv2d(128, 256, kernel_size=(3, 3), padding=1),
+            nn.ReLU(),
+            nn.Conv2d(256, 256, kernel_size=(3, 3), padding=1),
+            nn.ReLU(),
+            nn.Conv2d(256, 256, kernel_size=(3, 3), padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=4, stride=4),
+            nn.Conv2d(64, 64, kernel_size=(3, 3), padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=4, stride=4),
+            nn.Flatten()
+        )
+        self.features.apply(init_weights)
 
+        # create classifier path for class label prediction
+        # TODO: play with dimensions of this network and compare
+        self.classifier = nn.Sequential(
+            # dimension = 64 [nb features per map pixel] x 3x3 [nb_map_pixels]
+            # 3 = ImageNet_image_res/(maxpool_stride^#maxpool_layers) = 224/4^3
+            nn.Linear(64 * 3 * 3, 32),
+            nn.ReLU(),
+            nn.Dropout(),
+            nn.Linear(32, 16),
+            nn.ReLU(),
+            nn.Dropout(),
+            nn.Linear(16, nb_classes)
+        )
+        self.classifier.apply(init_weights)
 
+        # create regressor path for bounding box coordinates prediction
+        # TODO: take inspiration from above without dropouts
+
+    def forward(self, x):
+        # get features from input then run them through the classifier
+        x = self.features(x)
+        # TODO: compute and add the bounding box regressor term
+        return self.classifier(x)
 # TODO: once played with VGG, play with this
 class ResnetObjectDetector(nn.Module):
     """ Resnet18 based feature extraction layers """
