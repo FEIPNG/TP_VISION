@@ -9,6 +9,9 @@ BASE_PATH = "/matieres/5MMVORF/01-dataset"
 IMAGES_PATH = os.path.join(BASE_PATH, "images")
 ANNOTS_PATH = os.path.join(BASE_PATH, "annotations")
 
+USER_PATH = os.getcwd()
+IMAGES_INTERNET_PATH = os.path.join(USER_PATH, "internet_images")
+
 # define the path to the base output directory
 BASE_OUTPUT = "output"
 

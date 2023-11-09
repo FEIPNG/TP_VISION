@@ -4,6 +4,8 @@ import os
 import torch
 import cv2
 
+use_internet = True
+
 # load our object detector, set it evaluation mode, and label
 # encoder from disk
 print("**** loading object detector...")
@@ -17,7 +19,7 @@ for path in sys.argv[1:]:
         for row in open(path).read().strip().split("\n"):
             # TODO: read bounding box annotations
             filename, _, _, _, _, label = row.split(',')
-            filename = os.path.join(config.IMAGES_PATH, label, filename)
+            filename = os.path.join(config.IMAGES_PATH if not use_internet else config.IMAGES_INTERNET_PATH, label, filename)
             # TODO: add bounding box annotations here
             data.append((filename, None, None, None, None, label))
     else:
