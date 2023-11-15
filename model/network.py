@@ -78,13 +78,17 @@ class DeeperDetector(nn.Module):
             nn.Conv2d(256, 256, kernel_size=(3, 3), padding=1),
             nn.ReLU(),
             nn.Conv2d(256, 256, kernel_size=(3, 3), padding=1),
-            nn.BatchNorm2d(64),
+            # nn.BatchNorm2d(64),
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=4, stride=4),
-            nn.Conv2d(64, 64, kernel_size=(3, 3), padding=1),
-            nn.BatchNorm2d(64),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Conv2d(256, 512, kernel_size=(3, 3), padding=1),
+            # nn.BatchNorm2d(64),
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=4, stride=4),
+            nn.Conv2d(512, 512, kernel_size=(3, 3), padding=1),
+            nn.ReLU(),
+            nn.Conv2d(512, 512, kernel_size=(3, 3), padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Flatten()
         )
         self.features.apply(init_weights)
@@ -94,13 +98,13 @@ class DeeperDetector(nn.Module):
         self.classifier = nn.Sequential(
             # dimension = 64 [nb features per map pixel] x 3x3 [nb_map_pixels]
             # 3 = ImageNet_image_res/(maxpool_stride^#maxpool_layers) = 224/4^3
-            nn.Linear(64 * 3 * 3, 32),
+            nn.Linear(512*14*14, 512),
             nn.ReLU(),
             nn.Dropout(),
-            nn.Linear(32, 16),
+            nn.Linear(512, 128),
             nn.ReLU(),
             nn.Dropout(),
-            nn.Linear(16, nb_classes)
+            nn.Linear(128, nb_classes)
         )
         self.classifier.apply(init_weights)
 

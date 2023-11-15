@@ -1,6 +1,9 @@
 from model.dataset import ImageDataset
-from model.network import SimpleDetector as ObjectDetector
+# from model.network import SimpleDetector as ObjectDetector
+from model.network import DeeperDetector as ObjectDetector
+
 from model import config
+
 import torch
 from torch.utils.data import DataLoader
 from torch.nn import functional as fun
