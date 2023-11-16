@@ -48,12 +48,22 @@ class SimpleDetector(nn.Module):
 
         # create regressor path for bounding box coordinates prediction
         # TODO: take inspiration from above without dropouts
+        self.regressor = nn.Sequential(
+            nn.Linear(64 * 3 * 3, 32),
+            nn.ReLU(),
+            nn.Linear(32, 16),
+            nn.ReLU(),
+            nn.Linear(16, 4), #4 because bounding box is defined by 4 values
+            nn.Sigmoid()
+        )
 
     def forward(self, x):
         # get features from input then run them through the classifier
         x = self.features(x)
         # TODO: compute and add the bounding box regressor term
-        return self.classifier(x)
+        return self.classifier(x), self.regressor(x)
+
+
 class DeeperDetector(nn.Module):
     """ VGG11 inspired feature extraction layers """
     def __init__(self, nb_classes):
@@ -131,25 +141,31 @@ class VGGLikeDetector(nn.Module):
             nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.Conv2d(64, 64, kernel_size=(3, 3), padding=1),
+            nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Conv2d(64, 128, kernel_size=(3, 3), padding=1),
+            nn.BatchNorm2d(128),
             nn.ReLU(),
             nn.Conv2d(128, 128, kernel_size=(3, 3), padding=1),
             nn.BatchNorm2d(128),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Conv2d(128, 256, kernel_size=(3, 3), padding=1),
+            nn.BatchNorm2d(256),
             nn.ReLU(),
             nn.Conv2d(256, 256, kernel_size=(3, 3), padding=1),
+            nn.BatchNorm2d(256),
             nn.ReLU(),
             nn.Conv2d(256, 256, kernel_size=(3, 3), padding=1),
             nn.BatchNorm2d(256),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Conv2d(256, 512, kernel_size=(3, 3), padding=1),
+            nn.BatchNorm2d(512),
             nn.ReLU(),
             nn.Conv2d(512, 512, kernel_size=(3, 3), padding=1),
+            nn.BatchNorm2d(512),
             nn.ReLU(),
             nn.Conv2d(512, 512, kernel_size=(3, 3), padding=1),
             nn.BatchNorm2d(512),
