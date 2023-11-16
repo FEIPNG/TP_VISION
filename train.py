@@ -1,6 +1,6 @@
 from model.dataset import ImageDataset
-# from model.network import SimpleDetectkor as ObjectDetector
-from model.network import DeeperDetector as ObjectDetector
+from model.network import SimpleDetector as ObjectDetector
+# from model.network import VGGLikeDetector as ObjectDetector
 
 from model import config
 
@@ -35,10 +35,10 @@ if __name__ == '__main__':
     random.seed(0)
     random.shuffle(data)
 
-    # cut_val = int(0.8 * len(data))   # 0.8
-    # cut_test = int(0.9 * len(data))  # 0.9
-    cut_val = int(0.1 * len(data))   # 0.1
-    cut_test = int(0.2 * len(data))  # 0.2
+    cut_val = int(0.1 * len(data))   # 0.8
+    cut_test = int(0.2 * len(data))  # 0.9
+    # cut_val = int(0.005 * len(data))   # 0.005
+    # cut_test = int(0.1 * len(data))  # 0.1
     train_data = data[:cut_val]
     val_data = data[cut_val:cut_test]
     test_data = data[cut_test:]
@@ -91,6 +91,7 @@ if __name__ == '__main__':
             # send the inputs and training annotations to the device
             # TODO: modify line below to get bbox data
             images, labels = [datum.to(config.DEVICE) for datum in batch]
+            # print(labels)
 
             # perform a forward pass and calculate the training loss
             predict = object_detector(images)
