@@ -7,6 +7,7 @@ from model import config
 import torch
 from torch.utils.data import DataLoader
 from torch.nn import functional as fun
+from torch.nn import MSELoss as mse
 from torch.optim import Adam
 import matplotlib.pyplot as plt
 from collections import defaultdict
@@ -90,15 +91,16 @@ if __name__ == '__main__':
         for batch in loader:
             # send the inputs and training annotations to the device
             # TODO: modify line below to get bbox data
-            images, labels = [datum.to(config.DEVICE) for datum in batch]
-            # print(labels)
+            images, labels, bbox_data = [datum.to(config.DEVICE) for datum in batch]
 
             # perform a forward pass and calculate the training loss
             predict = object_detector(images)
 
             # TODO: add loss term for bounding boxes
-            bbox_loss = 0
-            class_loss = fun.cross_entropy(predict, labels, reduction="sum")
+            loss = mse()
+
+            bbox_loss = loss(predict[1], bbox_data)
+            class_loss = fun.cross_entropy(predict[0], labels, reduction="sum")
             batch_loss = config.BBOXW * bbox_loss + config.LABELW * class_loss
 
             # zero out the gradients, perform backprop & update the weights
@@ -110,7 +112,7 @@ if __name__ == '__main__':
             # add the loss to the total training loss so far and
             # calculate the number of correct predictions
             total_loss += batch_loss
-            correct_labels = predict.argmax(1) == labels
+            correct_labels = predict[0].argmax(1) == labels
             correct += correct_labels.type(torch.float).sum().item()
 
         # return sample-level averages of the loss and accuracy
