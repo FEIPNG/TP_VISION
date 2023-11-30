@@ -1,8 +1,9 @@
-baby_face.png,0,0,0,0,face
-make_up_face.png,0,0,0,0,face
-synthesis_face.png,0,0,0,0,face
-drawing_plane.jpg,0,0,0,0,airplane
-real_plane.jpeg,0,0,0,0,airplane
-real_plane_reversed.jpeg,0,0,0,0,airplane
-motorcycle.png,0,0,0,0,motorcycle
-moto_drawing.png,0,0,0,0,motorcycle
+baby_face.png,34,0,34,0,face
+moto_drawing.png,53,112,53,112,motorcycle
+motorcycle.png,188,140,188,140,motorcycle
+make_up_face.png,92,26,92,26,face
+normal_face.png,4,1,4,1,face
+synthesis_face.png,36,22,36,22,face
+drawing_plane.jpg,36,10,36,10,plane
+real_plane.jpeg,23,105,23,105,plane
+real_plane_reversed.jpeg,63,160,63,160,plane
