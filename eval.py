@@ -19,6 +19,7 @@ model.eval()
 print(f"**** object detector loaded")
 
 results_labels = dict()
+results_bbox = dict()
 
 for mode, csv_file in [['train', config.TRAIN_PATH],
                        ['validation', config.VAL_PATH],
@@ -29,11 +30,13 @@ for mode, csv_file in [['train', config.TRAIN_PATH],
     print(f"Evaluating {mode} set...")
     # loop over CSV file rows (filename, startX, startY, endX, endY, label)
     for row in open(csv_file).read().strip().split("\n"):
-        # TODO: read bounding box annotations
-        filename, _, _, _, _, label = row.split(',')
+        filename, start_x, start_y, end_x, end_y, label = row.split(',')
+        start_x = int(start_x)
+        start_y = int(start_y)
+        end_x = int(end_x)
+        end_y = int(end_y)
         filename = os.path.join(config.IMAGES_PATH, label, filename)
-        # TODO: add bounding box annotations here
-        data.append((filename, None, None, None, None, label))
+        data.append((filename, start_x, start_y, end_x, end_y, label))
 
     print(f"Evaluating {len(data)} samples...")
 
@@ -42,6 +45,11 @@ for mode, csv_file in [['train', config.TRAIN_PATH],
     results_labels[mode]['all'] = []
     for label_str in config.LABELS:
         results_labels[mode][label_str] = []
+
+    results_bbox[mode] = dict() 
+    results_bbox[mode]['all'] = 0
+    for label_str in config.LABELS:
+        results_bbox[mode][label_str] = 0
 
     # loop over the images that we'll be testing using our bounding box
     # regression model
@@ -58,20 +66,28 @@ for mode, csv_file in [['train', config.TRAIN_PATH],
         image = image.unsqueeze(0)
 
         # predict the bounding box of the object along with the class label
-        label_predictions = model(image)
+        label_predictions, bbox_prediction = model(image)
 
         # determine the class label with the largest predicted probability
         label_predictions = torch.nn.Softmax(dim=-1)(label_predictions)
         most_likely_label = label_predictions.argmax(dim=-1).cpu()
         label = config.LABELS[most_likely_label]
 
-        # TODO: denormalize bounding box from (0,1)x(0,1) to (0,w)x(0,h)
+        values = bbox_prediction.cpu().detach().numpy()[0]
+        start_x, start_y, end_x, end_y = values[0], values[1], values[2], values[3]
+        start_x *= w 
+        end_x *= w 
+        start_y *= h 
+        end_y *= h
 
         # Compare to gt data
         results_labels[mode]['all'].append(label == gt_label)
         results_labels[mode][gt_label].append(label == gt_label)
 
-        # TODO: compute cumulated bounding box metrics
+        # Not the best metrics
+        metrics = (start_x - gt_start_x)**2 + (start_y - gt_start_y)**2 + (end_x - gt_end_x)**2 + (end_y - gt_end_y)**2
+        results_bbox[mode]['all'] += metrics
+        results_bbox[mode][gt_label] += metrics
 
         if label != gt_label:
             print(f"\tFailure at {filename}")
@@ -82,12 +98,14 @@ for mode in ['train', 'validation', 'test']:
     print(f'\n*** {mode} set accuracy')
     print(f"\tMean accuracy for all labels: "
           f"{numpy.mean(numpy.array(results_labels[mode]['all']))}")
-    # TODO: display bounding box metrics
-
+    print(f"\tMean boundig box metrics for all labels: "
+          f"{numpy.mean(numpy.array(results_bbox[mode]['all']))}")
+    
     for label_str in config.LABELS:
         print(f'\n\tMean accuracy for label {label_str}: '
               f'{numpy.mean(numpy.array(results_labels[mode][label_str]))}')
         print(f'\t\t {numpy.sum(results_labels[mode][label_str])} over '
               f'{len(results_labels[mode][label_str])} samples')
-        # TODO: display bounding box metrics
+        print(f"\tMean boundig box metrics for label {label_str}: "
+          f"{(numpy.array(results_bbox[mode][label_str]))}")
 
