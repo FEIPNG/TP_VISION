@@ -90,13 +90,11 @@ if __name__ == '__main__':
         # loop over batches of the training set
         for batch in loader:
             # send the inputs and training annotations to the device
-            # TODO: modify line below to get bbox data
             images, labels, bbox_data = [datum.to(config.DEVICE) for datum in batch]
 
             # perform a forward pass and calculate the training loss
             predict = object_detector(images)
 
-            # TODO: add loss term for bounding boxes
             loss = mse()
 
             bbox_loss = loss(predict[1], bbox_data)
@@ -154,7 +152,6 @@ if __name__ == '__main__':
         print(f"Train loss: {train_loss:.8f}, Train accuracy: {train_acc:.8f}")
         print(f"Val loss: {val_loss:.8f}, Val accuracy: {val_acc:.8f}")
         print(f"Time of computation: {t1 - t0} s")
-        # TODO: write code to store model with highest accuracy, lowest loss
         if(e == 0 or prev_val_acc < val_acc or (prev_val_acc == val_acc and prev_val_loss > val_loss)):
             prev_val_acc = val_acc
             prev_val_loss = val_loss
@@ -176,7 +173,6 @@ if __name__ == '__main__':
     plt.style.use("ggplot")
     plt.figure()
 
-    # TODO: build and save matplotlib plot
     plt.plot(plots['Training loss'])
     plt.plot(plots['Training class accuracy'])
 
