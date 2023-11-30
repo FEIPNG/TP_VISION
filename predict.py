@@ -9,7 +9,7 @@ use_internet = False
 # load our object detector, set it evaluation mode, and label
 # encoder from disk
 print("**** loading object detector...")
-model = torch.load(config.LAST_MODEL_PATH).to(config.DEVICE)
+model = torch.load(config.BEST_MODEL_PATH).to(config.DEVICE)
 model.eval()
 
 data = []

@@ -112,12 +112,21 @@ class DeeperDetector(nn.Module):
 
         # create regressor path for bounding box coordinates prediction
         # TODO: take inspiration from above without dropouts
+        self.regressor = nn.Sequential(
+            nn.Linear(512*7*7, 32),
+            nn.ReLU(),
+            nn.Linear(32, 16),
+            nn.ReLU(),
+            nn.Linear(16, 4), #4 because bounding box is defined by 4 values
+            nn.Sigmoid()
+        )
+        self.regressor.apply(init_weights)
 
     def forward(self, x):
         # get features from input then run them through the classifier
         x = self.features(x)
         # TODO: compute and add the bounding box regressor term
-        return self.classifier(x)
+        return self.classifier(x), self.regressor(x)
 
 # TODO: create a new class based on SimpleDetector to create a deeper model
 class VGGLikeDetector(nn.Module):
@@ -182,12 +191,21 @@ class VGGLikeDetector(nn.Module):
 
         # create regressor path for bounding box coordinates prediction
         # TODO: take inspiration from above without dropouts
+        self.regressor = nn.Sequential(
+            nn.Linear(64 * 3 * 3, 32),
+            nn.ReLU(),
+            nn.Linear(32, 16),
+            nn.ReLU(),
+            nn.Linear(16, 4), #4 because bounding box is defined by 4 values
+            nn.Sigmoid()
+        )
 
     def forward(self, x):
         # get features from input then run them through the classifier
         x = self.features(x)
         # TODO: compute and add the bounding box regressor term
-        return self.classifier(x)
+        return self.classifier(x), self.regressor(x)
+    
 # TODO: once played with VGG, play with this
 class ResnetObjectDetector(nn.Module):
     """ Resnet18 based feature extraction layers """
@@ -218,10 +236,18 @@ class ResnetObjectDetector(nn.Module):
 
         # create regressor path for bounding box coordinates prediction
         # TODO: take inspiration from above without dropouts
+        self.regressor = nn.Sequential(
+            nn.Linear(64 * 3 * 3, 32),
+            nn.ReLU(),
+            nn.Linear(32, 16),
+            nn.ReLU(),
+            nn.Linear(16, 4), #4 because bounding box is defined by 4 values
+            nn.Sigmoid()
+        )
 
     def forward(self, x):
         # pass the inputs through the base model and then obtain
         # predictions from two different branches of the network
         x = self.features(x)
         # TODO: compute and add the bounding box regressor term
-        return self.classifier(x)
+        return self.classifier(x), self.regressor(x)

@@ -1,6 +1,6 @@
 from model.dataset import ImageDataset
-from model.network import SimpleDetector as ObjectDetector
-# from model.network import VGGLikeDetector as ObjectDetector
+#from model.network import DeeperDetector as ObjectDetector
+from model.network import DeeperDetector as ObjectDetector
 
 from model import config
 
@@ -124,6 +124,7 @@ if __name__ == '__main__':
     prev_val_loss = None
     start_time = time.time()
     for e in range(config.NUM_EPOCHS):
+        t0 = time.time()
         # set model in training mode & backpropagate train loss for all batches
         object_detector.train()
 
@@ -139,6 +140,8 @@ if __name__ == '__main__':
             train_loss, train_acc = compute_loss(train_loader)
             val_loss, val_acc = compute_loss(val_loader)
 
+        t1 = time.time()
+
         # update our training history
         plots['Training loss'].append(train_loss.cpu())
         plots['Training class accuracy'].append(train_acc)
@@ -150,7 +153,7 @@ if __name__ == '__main__':
         print(f"**** EPOCH: {e + 1}/{config.NUM_EPOCHS}")
         print(f"Train loss: {train_loss:.8f}, Train accuracy: {train_acc:.8f}")
         print(f"Val loss: {val_loss:.8f}, Val accuracy: {val_acc:.8f}")
-
+        print(f"Time of computation: {t1 - t0} s")
         # TODO: write code to store model with highest accuracy, lowest loss
         if(e == 0 or prev_val_acc < val_acc or (prev_val_acc == val_acc and prev_val_loss > val_loss)):
             prev_val_acc = val_acc
